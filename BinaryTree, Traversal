@@ -1,0 +1,41 @@
+class TNode:
+    def __init__(self,data,left,right):
+        self.data = data
+        self.left = left
+        self.right = right
+
+def preorder(n):
+    if n is not None:
+        print(n.data, end = ' ')
+        preorder(n.left)
+        preorder(n.right)
+
+def inorder(n):
+    if n is not None:
+        inorder(n.left)
+        print(n.data, end = " ")
+        inorder(n.right)
+
+def postorder(n):
+    if n is not None:
+        postorder(n.left)
+        postorder(n.right)
+        print(n.data, end = " ")
+
+
+
+
+d = TNode('D',None,None)
+e = TNode("E",None,None)
+f = TNode("F",None,None)
+b = TNode("B",d,e)
+c = TNode("C",f,None)
+a = TNode("A",b,c)
+root = a
+
+print("전위 순회")
+preorder(root)
+print("\n중위 순회")
+inorder(root)
+print("\n후위 순회")
+postorder(root)
