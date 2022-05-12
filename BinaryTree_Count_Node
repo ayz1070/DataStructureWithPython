@@ -1,0 +1,75 @@
+class TNode:
+    def __init__(self,data,left,right):
+        self.data = data
+        self.left = left
+        self.right = right
+        
+# 시험 문제 내기 좋은 파트
+
+def preorder(n):    # 전위 순회
+    if n is not None:
+        print(n.data, end = ' ')
+        preorder(n.left)
+        preorder(n.right)
+
+def inorder(n): # 중위 순회
+    if n is not None:
+        inorder(n.left)
+        print(n.data, end = " ")
+        inorder(n.right)
+
+def postorder(n):   # 후위 순회
+    if n is not None:
+        postorder(n.left)
+        postorder(n.right)
+        print(n.data, end = " ")
+
+def count_node(n):  # 노드 개수 
+    if n is None:
+        return 0
+    else:
+        return 1+count_node(n.left) + count_node(n.right)
+
+
+def calc_height(n):
+    if n is None:
+        return 0
+
+    hLeft = calc_height(n.left)
+    hRight = calc_height(n.right)
+    if(hLeft>hRight):
+        return hLeft +1
+    else:
+        return hRight +1
+
+def count_leaf(n):
+    if n is None:
+        return 0
+    elif n.left is None and n.right is None:
+        return 1
+    else:
+        return count_leaf(n.left) + count_leaf(n.right)
+
+
+h = TNode('H',None,None)
+g = TNode('G',None,None)
+d = TNode('D',g,h)
+e = TNode("E",None,None)
+f = TNode("F",None,None)
+b = TNode("B",d,None)
+c = TNode("C",e,f)
+a = TNode("A",b,c)
+root = a
+
+print("트리의 높이:", calc_height(a))
+print("노드의 개수:",count_node(a))
+print("단말의 개수:",count_leaf(a))
+print("중위 순회:",end ='')
+inorder(a)
+print()
+print("후위 순회:",end ='')
+postorder(a)
+print()
+print("전위 순회:",end ='')
+preorder(a)
+print()
