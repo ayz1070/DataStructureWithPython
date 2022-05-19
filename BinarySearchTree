@@ -1,0 +1,177 @@
+class BSTNode:
+    def __init__(self,key,value):
+        self.key=key
+        self.value = value
+        self.left=None
+        self.right=None
+
+
+# 순환적 표현
+def search_bst(n,key):
+    if n ==None:
+        print("없음")
+        return None
+    elif key==n.key:
+        print(n.key)
+        return n
+    elif key<n.key:
+        print(n.key)
+        return search_bst(n.left,key)
+    elif key>n.key:
+        print(n.key)
+        return search_bst(n.right,key)
+
+# 반복 구현
+def search_bst_iter(n,key):
+    while n!= None:
+        if key == n.key:
+            return n
+        elif key<n.key:
+            print(n.key)
+            n=n.left
+        else:
+            print(n.key)
+            n=n.right
+    print("없음")
+    return None
+
+
+def search_max_bst(n):
+    while n!=None and n.right!=None:
+        n=n.right
+    return n
+
+"""# 과제
+def search_max_bst_iter(n):
+    if n!=None and n.right!=None:
+        search_max_bst_iter(n.right)
+    else:
+        return n"""
+
+def search_min_bst(n):
+    while n!=None and n.left != None:
+        n=n.left
+    return n
+    
+def insert_bst(n,new):
+    print(n.key)
+    if new.key<n.key:
+        if n.left ==None:
+            n.left = new
+            return True
+        else:
+            return insert_bst(n.left,new)
+    elif new.key>n.key:
+        if n.right ==None:
+            n.right = new
+            return True
+        else:
+            return insert_bst(n.right,new)
+    else: return False
+
+def delete_bst_case1(parent,node,root): # 삭제할 노드가 단말노드인 경우
+    if parent is None:
+        root = None
+    else:
+        if parent.left == node:
+            parent.left = None
+        else:
+            parent.right=None
+
+    return root
+
+def delete_bst_case2(parent,node,root): # 삭제할 노드가 자식이 하나인 경우
+    if node.left is not None:
+        child = node.left
+    else:
+        child = node.right
+
+    if node ==root:
+        root = child
+    else:
+        if node is parent.left:
+            parent.left = child
+        else:
+            parent.right = child
+
+    return root
+
+def delete_bst_case3(parent,node,root):
+    succp = node
+    succ=node.right
+    while succ.left != None:
+        succp = succ
+        succ=succ.left
+    
+    if succp.left == succ:
+        succp.left = succ.right
+    else:
+        succp.right = succ.right
+    node.key = succ.value
+    node.value = succ.value
+    node = succ
+
+    return root
+
+def delete_bst(root,key):
+    if root == None:
+        return None
+
+    parent = None
+    node = root
+    while node != None and node.key != key:
+        parent = node
+        if key<node.key:
+            node=node.left
+        else:
+            node = node.right
+
+    if node ==None:
+        return None
+    if node.left == None and node.right == None:
+        root = delete_bst_case1(parent,node,root)
+    elif node.left==None or node.right==None:
+        root = delete_bst_case2(parent,node,root)
+    else:
+        root = delete_bst_case3(parent,node,root)
+    return root
+    
+
+
+        
+def inorder(n):
+    if n is not None:
+        inorder(n.left)
+        print(n.key,end=" ")
+        inorder(n.right)
+        
+
+
+
+node3=BSTNode(3,3)
+node12=BSTNode(12,12)
+node27=BSTNode(27,27)
+node31=BSTNode(31,31)
+node7=BSTNode(7,7)
+node26=BSTNode(26,26)
+node18=BSTNode(18,18)
+
+
+
+node18.left = node7
+node18.right = node26
+
+
+node7.left = node3
+node7.right = node12
+
+node26.right = node31
+
+node31.left = node27
+
+inorder(node18)
+print()
+delete_bst(node18,26)
+inorder(node18)
+
+
