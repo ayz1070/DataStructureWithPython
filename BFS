@@ -4,7 +4,7 @@ def bfs(graph,start):
     while queue:
         vertex = queue.popleft()
         print(vertex,end=" ")
-        nbr=graph[vertex]-visited
+        nbr=sorted(graph[vertex]-visited)   # 정렬 체크 해줘라
         for v in nbr:
             visited.add(v)
             queue.append(v)
