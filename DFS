@@ -1,0 +1,8 @@
+def dfs(graph,start,visited=set()):
+    if start not in visited:
+        visited.add(start)  # 첫 노드 방문 처리
+        print(start,end=' ')    # 첫 노드 출력
+        nbr = sorted(graph[start]-visited)   # visited 제외하고 방문, 정렬 해줘야됨 하지만 시험에선 생략 가능
+        print("Neighbor: ", nbr)
+        for v in nbr:    
+            dfs(graph,v,visited)
